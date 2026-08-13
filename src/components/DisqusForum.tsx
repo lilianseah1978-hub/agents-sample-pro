@@ -1,28 +1,55 @@
-import React, { useEffect } from 'react';
-import { MessageSquare } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { MessageSquare, AlertCircle } from 'lucide-react';
 
 export const DisqusForum: React.FC = () => {
-  useEffect(() => {
-    // 1. Embed Disqus Thread
-    if ((window as any).DISQUS) {
-      (window as any).DISQUS.reset({
-        reload: true,
-      });
-    } else {
-      const d = document;
-      const s = d.createElement('script');
-      s.src = 'https://agenti-ai-sample1.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', `${+new Date()}`);
-      (d.head || d.body).appendChild(s);
-    }
+  const [loadError, setLoadError] = useState<boolean>(false);
 
-    // 2. Load Disqus Comment Count Script
-    if (!document.getElementById('dsq-count-scr')) {
-      const countScript = document.createElement('script');
-      countScript.id = 'dsq-count-scr';
-      countScript.src = 'https://agenti-ai-sample1.disqus.com/count.js';
-      countScript.async = true;
-      (document.head || document.body).appendChild(countScript);
+  useEffect(() => {
+    try {
+      // Configure Disqus window object safely
+      (window as any).disqus_config = function (this: any) {
+        this.page.url = window.location.href;
+        this.page.identifier = 'tradingview_apex_forum';
+      };
+
+      // 1. Embed Disqus Thread Script
+      if ((window as any).DISQUS) {
+        try {
+          (window as any).DISQUS.reset({
+            reload: true,
+            config: (window as any).disqus_config,
+          });
+        } catch (e) {
+          console.warn('Disqus reset error:', e);
+        }
+      } else if (!document.getElementById('disqus-embed-script')) {
+        const d = document;
+        const s = d.createElement('script');
+        s.id = 'disqus-embed-script';
+        s.src = 'https://agenti-ai-sample1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', `${+new Date()}`);
+        s.async = true;
+        s.onerror = (e) => {
+          console.warn('Disqus embed script failed to load:', e);
+          setLoadError(true);
+        };
+        (d.head || d.body).appendChild(s);
+      }
+
+      // 2. Load Disqus Comment Count Script safely
+      if (!document.getElementById('dsq-count-scr')) {
+        const countScript = document.createElement('script');
+        countScript.id = 'dsq-count-scr';
+        countScript.src = 'https://agenti-ai-sample1.disqus.com/count.js';
+        countScript.async = true;
+        countScript.onerror = (e) => {
+          console.warn('Disqus count script failed to load:', e);
+        };
+        (document.head || document.body).appendChild(countScript);
+      }
+    } catch (err) {
+      console.warn('Disqus forum initialization error:', err);
+      setLoadError(true);
     }
   }, []);
 
@@ -49,6 +76,13 @@ export const DisqusForum: React.FC = () => {
           Comments
         </a>
       </div>
+
+      {loadError && (
+        <div className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 p-3 rounded-lg border border-amber-200 dark:border-amber-900/40 mb-4 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>Discussion forum script could not be loaded directly in preview mode (cross-origin browser restrictions). Open app in a new tab or visit Disqus to participate.</span>
+        </div>
+      )}
 
       {/* Disqus Container */}
       <div id="disqus_thread" className="min-h-[200px]" />
