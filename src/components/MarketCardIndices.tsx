@@ -31,7 +31,7 @@ export const MarketCardIndices: React.FC<MarketCardIndicesProps> = ({
 
       {/* Main Indices List */}
       <div className="grid grid-cols-1 gap-2">
-        {indices.map((item) => {
+        {(indices || []).map((item) => {
           const isUp = item.changePercent >= 0;
           return (
             <div
@@ -94,7 +94,7 @@ export const MarketCardIndices: React.FC<MarketCardIndicesProps> = ({
           World indices
         </h3>
         <div className="flex flex-col gap-1">
-          {worldIndices.map((item) => {
+          {(worldIndices || []).map((item) => {
             const isUp = item.changePercent >= 0;
             return (
               <div

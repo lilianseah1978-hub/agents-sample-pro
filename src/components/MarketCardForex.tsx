@@ -46,7 +46,7 @@ export const MarketCardForex: React.FC<MarketCardForexProps> = ({
               </tr>
             </thead>
             <tbody className="font-tabular text-sm">
-              {forexList.map((pair) => {
+              {(forexList || []).map((pair) => {
                 const isUp = pair.changePercent >= 0;
                 return (
                   <tr

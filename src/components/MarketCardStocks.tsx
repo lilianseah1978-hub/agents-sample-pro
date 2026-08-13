@@ -52,7 +52,7 @@ export const MarketCardStocks: React.FC<MarketCardStocksProps> = ({
               </tr>
             </thead>
             <tbody className="font-tabular text-sm">
-              {stocks.slice(0, 5).map((stock) => {
+              {(stocks || []).slice(0, 5).map((stock) => {
                 const isUp = stock.changePercent >= 0;
                 return (
                   <tr
@@ -109,7 +109,7 @@ export const MarketCardStocks: React.FC<MarketCardStocksProps> = ({
           Highest Volume Tickers
         </h3>
         <div className="flex flex-wrap gap-1.5">
-          {volumeTags.map((tag) => (
+          {(volumeTags || []).map((tag) => (
             <button
               key={tag}
               onClick={() => {

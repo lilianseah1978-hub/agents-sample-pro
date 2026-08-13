@@ -48,7 +48,7 @@ export const MarketCardCrypto: React.FC<MarketCardCryptoProps> = ({
               </tr>
             </thead>
             <tbody className="font-tabular text-sm">
-              {cryptoList.slice(0, 5).map((coin) => {
+              {(cryptoList || []).slice(0, 5).map((coin) => {
                 const isUp = coin.changePercent > 0;
                 const isZero = coin.changePercent === 0;
                 return (

@@ -197,7 +197,7 @@ export const SymbolDetailModal: React.FC<SymbolDetailModalProps> = ({
             {/* Main Interactive Chart (2 Columns) */}
             <div className="lg:col-span-2 h-72 w-full bg-[#F8F9FB] dark:bg-[#1E222D] border border-[#E0E3EB] dark:border-[#2A2E39] rounded-xl p-4">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={asset.chartData}>
+                <AreaChart data={asset.chartData || []}>
                   <defs>
                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                       <stop

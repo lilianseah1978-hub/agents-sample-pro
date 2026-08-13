@@ -46,7 +46,7 @@ export const MarketCardCommodities: React.FC<MarketCardCommoditiesProps> = ({
               </tr>
             </thead>
             <tbody className="font-tabular text-sm">
-              {commoditiesList.map((item) => {
+              {(commoditiesList || []).map((item) => {
                 const isUp = item.changePercent >= 0;
                 return (
                   <tr

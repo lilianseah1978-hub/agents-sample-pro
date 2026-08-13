@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { ChevronDown, Check, Sparkles } from 'lucide-react';
+import { MarketAsset } from '../types';
 
 interface HeroSectionProps {
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
-  onOpenAIInsights: () => void;
+  onOpenAIInsights?: () => void;
+  onSelectAsset?: (asset: MarketAsset) => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   selectedCategory,
   onSelectCategory,
   onOpenAIInsights,
+  onSelectAsset,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -87,15 +90,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </button>
         ))}
 
-        <button
-          onClick={onOpenAIInsights}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90 active:scale-95 transition-all shadow-xs"
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          AI Macro Analysis
-        </button>
+        {onOpenAIInsights && (
+          <button
+            onClick={onOpenAIInsights}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-full bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90 active:scale-95 transition-all shadow-xs cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            AI Macro Analysis
+          </button>
+        )}
       </div>
     </header>
   );
 };
+
 

@@ -1,14 +1,28 @@
 import React from 'react';
 import { SectorPerformance } from '../types';
 
+export const defaultSectors: SectorPerformance[] = [
+  { name: 'Technology', changePercent: 1.42 },
+  { name: 'Financials', changePercent: 0.65 },
+  { name: 'Healthcare', changePercent: -0.38 },
+  { name: 'Energy', changePercent: -1.12 },
+  { name: 'Crypto & Digital', changePercent: 3.85 },
+  { name: 'Consumer Disc.', changePercent: 0.82 },
+];
+
 interface SectorBarProps {
-  sectors: SectorPerformance[];
+  sectors?: SectorPerformance[];
   onSelectSector?: (sectorName: string) => void;
 }
 
-export const SectorBar: React.FC<SectorBarProps> = ({ sectors }) => {
+export const SectorBar: React.FC<SectorBarProps> = ({
+  sectors = defaultSectors,
+  onSelectSector,
+}) => {
+  const safeSectors = sectors || defaultSectors;
+
   return (
-    <div className="w-full bg-white dark:bg-[#1E222D] border border-[#E0E3EB] dark:border-[#2A2E39] rounded-xl p-4 shadow-xs">
+    <div className="w-full bg-white dark:bg-[#1E222D] border border-[#E0E3EB] dark:border-[#2A2E39] rounded-xl p-4 shadow-xs transition-colors">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-xs font-bold uppercase tracking-wider text-[#181c21] dark:text-white flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#2962FF]" /> Sector Performance Heatmap
@@ -19,11 +33,12 @@ export const SectorBar: React.FC<SectorBarProps> = ({ sectors }) => {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-        {sectors.map((sector) => {
+        {safeSectors.map((sector) => {
           const isUp = sector.changePercent >= 0;
           return (
             <div
               key={sector.name}
+              onClick={() => onSelectSector?.(sector.name)}
               className={`p-2.5 rounded-lg border transition-all cursor-pointer hover:scale-[1.02] ${
                 isUp
                   ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/40 text-[#089981]'
@@ -51,3 +66,4 @@ export const SectorBar: React.FC<SectorBarProps> = ({ sectors }) => {
     </div>
   );
 };
+

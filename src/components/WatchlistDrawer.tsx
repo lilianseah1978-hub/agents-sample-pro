@@ -21,6 +21,8 @@ export const WatchlistDrawer: React.FC<WatchlistDrawerProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const safeWatchlist = watchlist || [];
+
   return (
     <div className="fixed inset-0 z-50 overflow-hidden animate-in fade-in">
       <div
@@ -41,13 +43,13 @@ export const WatchlistDrawer: React.FC<WatchlistDrawerProps> = ({
                   My Watchlist
                 </h3>
                 <p className="text-xs text-[#6A6D78] dark:text-[#808392]">
-                  {watchlist.length} saved symbol{watchlist.length === 1 ? '' : 's'}
+                  {safeWatchlist.length} saved symbol{safeWatchlist.length === 1 ? '' : 's'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              {watchlist.length > 0 && (
+              {safeWatchlist.length > 0 && (
                 <button
                   onClick={onClearWatchlist}
                   className="text-xs font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 px-2.5 py-1.5 rounded transition-colors"
@@ -66,7 +68,7 @@ export const WatchlistDrawer: React.FC<WatchlistDrawerProps> = ({
 
           {/* List Content */}
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
-            {watchlist.length === 0 ? (
+            {safeWatchlist.length === 0 ? (
               <div className="text-center py-16 px-4">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-950/40 text-[#2962FF] rounded-full flex items-center justify-center mx-auto mb-3">
                   <Bookmark className="w-6 h-6" />
@@ -79,7 +81,7 @@ export const WatchlistDrawer: React.FC<WatchlistDrawerProps> = ({
                 </p>
               </div>
             ) : (
-              watchlist.map((asset) => {
+              safeWatchlist.map((asset) => {
                 const isUp = asset.changePercent >= 0;
                 return (
                   <div

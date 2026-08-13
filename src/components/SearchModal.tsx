@@ -30,11 +30,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const filtered = assets.filter((item) => {
+  const safeAssets = assets || [];
+
+  const filtered = safeAssets.filter((item) => {
     const matchesCat = filterCat === 'all' || item.category === filterCat;
     const matchesQuery =
-      item.name.toLowerCase().includes(query.toLowerCase()) ||
-      item.symbol.toLowerCase().includes(query.toLowerCase());
+      (item.name || '').toLowerCase().includes(query.toLowerCase()) ||
+      (item.symbol || '').toLowerCase().includes(query.toLowerCase());
     return matchesCat && matchesQuery;
   });
 

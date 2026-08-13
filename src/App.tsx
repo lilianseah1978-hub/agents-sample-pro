@@ -207,10 +207,21 @@ export default function App() {
           selectedCategory={selectedCategory}
           onSelectCategory={(cat) => setSelectedCategory(cat)}
           onSelectAsset={(asset) => setSelectedAsset(asset)}
+          onOpenAIInsights={() => {
+            if (allAssets.length > 0) {
+              setSelectedAsset(allAssets[0]);
+            }
+          }}
         />
 
         {/* Sector Heatmap & Performance Bar */}
-        <SectorBar />
+        <SectorBar
+          onSelectSector={(sectorName) => {
+            if (sectorName.toLowerCase().includes('tech')) setSelectedCategory('stocks');
+            else if (sectorName.toLowerCase().includes('crypto')) setSelectedCategory('crypto');
+            else setSelectedCategory('all');
+          }}
+        />
 
         {/* Markets Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
