@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-background: #ffffff;
+    --color-surface: #f7f9ff;
+    --color-surface-alt: #f8f9fb;
+    --color-surface-card: #ffffff;
+    --color-border-subtle: #e0e3eb;
+    --color-primary: #181c21;
+    --color-secondary: #2962ff;
+    --color-market-up: #089981;
+    --color-market-down: #f23645;
+    --color-text-muted: #6a6d78;
+  }
+
+  .dark {
+    --color-background: #131722;
+    --color-surface: #131722;
+    --color-surface-alt: #1e222d;
+    --color-surface-card: #1e222d;
+    --color-border-subtle: #2a2e39;
+    --color-primary: #ffffff;
+    --color-secondary: #2962ff;
+    --color-market-up: #089981;
+    --color-market-down: #f23645;
+    --color-text-muted: #808392;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #181c21;
+    background-color: #ffffff;
+    margin: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .dark body {
+    color: #d1d4dc;
+    background-color: #131722;
+  }
+
+  h1, h2, h3, h4, .font-display, .font-title {
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+
+  .font-tabular {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Flash price update animation */
+@keyframes flash-up {
+  0% { background-color: rgba(8, 153, 129, 0.25); color: #089981; }
+  100% { background-color: transparent; }
+}
+
+@keyframes flash-down {
+  0% { background-color: rgba(242, 54, 69, 0.25); color: #f23645; }
+  100% { background-color: transparent; }
+}
+
+.animate-flash-up {
+  animation: flash-up 1s ease-out;
+}
+
+.animate-flash-down {
+  animation: flash-down 1s ease-out;
+}
+
+/* Custom scrollbar for data tables */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c6c6cc;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #2a2e39;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #76777c;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

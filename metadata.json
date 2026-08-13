@@ -1,0 +1,6 @@
+{
+  "name": "Apex Market System",
+  "description": "Real-time market overview platform with live price tickers, indices, US stocks, crypto, forex, commodities, and interactive technical charts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
