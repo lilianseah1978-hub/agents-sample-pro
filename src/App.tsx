@@ -26,6 +26,7 @@ import { MarketCardCommodities } from './components/MarketCardCommodities';
 import { SymbolDetailModal } from './components/SymbolDetailModal';
 import { SearchModal } from './components/SearchModal';
 import { WatchlistDrawer } from './components/WatchlistDrawer';
+import { DisqusForum } from './components/DisqusForum';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -279,6 +280,9 @@ export default function App() {
             />
           )}
         </div>
+
+        {/* Embedded Disqus Forum */}
+        <DisqusForum />
       </main>
 
       {/* Footer */}
